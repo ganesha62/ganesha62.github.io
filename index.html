@@ -1,3 +1,4 @@
+require('dotenv').config();
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,8 +75,6 @@
                             <p class="small-text">Programming Languages <br /> studied</p>
                         </div>
                     </div>
-                   
-                
                 </div>
             </div>
             <div class="about-stats">
@@ -113,7 +112,7 @@
                         <div class="progress-con">
                             <p class="prog-text">60%</p>
                             <div class="progress">
-                                <span class="react"></span>
+                                <span classclass="react"></span>
                             </div>
                         </div>
                     </div>
@@ -236,7 +235,7 @@
                                     <span>Email:</span>
                                 </div>
                                 <p>
-                                    <span> ganesharamgopal62@gmail.com</span>
+                                    <span>ganesharamgopal62@gmail.com</span>
                                 </p>
                             </div>
                             <div class="contact-item">
@@ -245,7 +244,7 @@
                                     <span>Education:</span>
                                 </div>
                                 <p>
-                                    <span> Velammal Engineering College, Chennai, India</span>
+                                    <span>Velammal Engineering College, Chennai, India</span>
                                 </p>
                             </div>
                             <div class="contact-item">
@@ -254,7 +253,7 @@
                                     <span>Mobile Number:</span>
                                 </div>
                                 <p>
-                                    <span> +91 9489276180</span>
+                                    <span>+91 9489276180</span>
                                 </p>
                             </div>
                             <div class="contact-item">
@@ -263,7 +262,7 @@
                                     <span>Languages:</span>
                                 </div>
                                 <p>
-                                    <span> English, Tamil, Telugu, German</span>
+                                    <span>English, Tamil, Telugu, German</span>
                                 </p>
                             </div>
                         </div>
@@ -281,16 +280,19 @@
                         </div>
                     </div>
                     <div class="right-contact">
-                        <form action="" class="contact-form">
+                        <form id="contact-form" class="contact-form">
                             <div class="input-control i-c-2">
-                                <input type="text" required placeholder="YOUR NAME">
-                                <input type="email" required placeholder="YOUR EMAIL">
+                                <input type="text" required placeholder="YOUR NAME" id="name">
+                                <input type="email" required placeholder="YOUR EMAIL" id="email">
                             </div>
                             <div class="input-control">
-                                <input type="text" required placeholder="ENTER SUBJECT">
+                                <input type="text" required placeholder="ENTER SUBJECT" id="subject">
                             </div>
                             <div class="input-control">
-                                <textarea name="" id="" cols="15" rows="8" placeholder="Message Here..."></textarea>
+                                <textarea name="" id="" cols="15" rows="8" placeholder="Message Here..." id="message"></textarea>
+                            </div>
+                            <div class="input-control">
+                                <button type="submit" onclick="sendEmail(event)">Submit</button>
                             </div>
                             <div class="submit-btn">
                                 <a href="cv.pdf" class="main-btn">
@@ -305,8 +307,8 @@
         </section>
     </main>
 
-    <div class="controls">
-        <div class="control active-btn" data-id="home" >
+    <divclass="controls">
+        <div class="control active-btn" data-id="home">
             <i class="fas fa-home"></i>
         </div>
         <div class="control" data-id="about">
@@ -324,5 +326,31 @@
         <i class="fas fa-adjust"></i>
     </div>
     <script src="app.js"></script>
+    <script src="https://cdn.emailjs.com/sdk/2.6.4/email.min.js"></script>
+    <script>
+        function sendEmail(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            emailjs.send(process.env.SERVICE_ID, process.env.TEMPLATE_ID, {
+                to_name: name,
+                from_name: email,
+                subject: subject,
+                message_html: message
+            }).then(function(response) {
+                alert("Email sent successfully!");
+                document.getElementById('name').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('subject').value = '';
+                document.getElementById('message').value = '';
+            }, function(error) {
+                console.log("Error sending email:", error);
+            });
+        }
+    </script>
 </body>
 </html>
