@@ -15,11 +15,35 @@
         <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
         </script>
-        <script type="text/javascript">
+        <!---<script type="text/javascript">
             (function(){
-                emailjs.init("ZrEuOuQlOinhPr-5G");
+                emailjs.init('sMaQYD0O607CY2cYx');
             })();
         </script>
+       <script>
+        // listen to the form submission
+        document
+          .getElementById("myForm")
+          .addEventListener("submit", function (event) {
+            event.preventDefault();
+  
+            const serviceID = "service_f8hs11f"
+const templateID = "template_sn8leub"
+  
+            // send the email here
+            emailjs.sendForm(serviceID, templateID, this).then(
+              (response) => {
+                console.log("SUCCESS!", response.status, response.text);
+                alert("SUCCESS!");
+              },
+              (error) => {
+                console.log("FAILED...", error);
+                alert("FAILED...", error);
+              }
+            );
+          });
+      </script>-->
+       
 
     </head>
     <body class="dark-mode">
@@ -512,7 +536,7 @@
         <section class="contact" id="contact">
             <h2 class="heading">Contact <span> Me</span></h2>
 
-            <form>
+            <form name="submit-to-google-sheet">
                 <div class="input-box">
                     <input id="name" type="text" placeholder="Your Name Here" required>
                     <input id="email" type="email" placeholder="Your Email Here" required>
@@ -522,7 +546,7 @@
                     <input id="subject" type="text" placeholder="Your Email Subject Here" required>
                 </div>
                 <textarea name="" id="message" cols="30" rows="10" placeholder="Your Message Here" required></textarea>
-                <input type="submit" value="Send Message" class="btn" onclick="sendEmail()">
+                <input type="submit" value="Send Message" class="btn">
             </form>
         </section>
 

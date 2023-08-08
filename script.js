@@ -66,7 +66,7 @@ ScrollReveal().reveal('.home-content h1, .about-img img, #colone', { origin: 'le
 
 ScrollReveal().reveal('.home-content h3, .home-content p, .about-content, #coltwo', { origin: 'right' });
 
-
+/*
 function sendEmail() {
   var params = {
     name: document.getElementById("name").value,
@@ -92,4 +92,14 @@ emailjs
 })
 .catch((err) => console.log(err));
 
-}
+}*/
+const scriptURL = 'https://docs.google.com/spreadsheets/d/1Xon5d7ss2hhppiXKkUYqDXfROorbyMBt0_Ri_LFRbbc/edit?usp=sharing'
+const form = document.forms['submit-to-google-sheet']
+
+form.addEventListener('submit', e => {
+  e.preventDefault()
+  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+    .then(response => console.log('Success!', response))
+    .catch(error => console.error('Error!', error.message))
+    alert("Form Submitted Successfully")
+})
