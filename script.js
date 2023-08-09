@@ -93,13 +93,25 @@ emailjs
 .catch((err) => console.log(err));
 
 }*/
-const scriptURL = 'https://docs.google.com/spreadsheets/d/1Xon5d7ss2hhppiXKkUYqDXfROorbyMBt0_Ri_LFRbbc/edit?usp=sharing'
-const form = document.forms['submit-to-google-sheet']
 
-form.addEventListener('submit', e => {
-  e.preventDefault()
-  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-    .then(response => console.log('Success!', response))
-    .catch(error => console.error('Error!', error.message))
-    alert("Form Submitted Successfully")
-})
+
+function onSubmit(e) {
+  var url = 'https://docs.google.com/spreadsheets/d/1Xon5d7ss2hhppiXKkUYqDXfROorbyMBt0_Ri_LFRbbc/edit?usp=sharing'; // Replace with the URL of your Google Sheet
+  var form = FormApp.getActiveForm();
+  var response = e.response;
+  var data = response.getItemResponses().map(function(item) {
+    return item.getResponse();
+  });
+
+  var payload = {
+    'values': [data]
+  };
+
+  var options = {
+    'method' : 'post',
+    'contentType': 'application/json',
+    'payload' : JSON.stringify(payload)
+  };
+
+  UrlFetchApp.fetch(url, options);
+}
